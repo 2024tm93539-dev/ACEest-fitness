@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aceest-app-blue
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: aceest-blue
+  template:
+    metadata:
+      labels:
+        app: aceest-blue
+    spec:
+      containers:
+      - name: aceest-container
+        image: aceest-fitness:v1
+        ports:
+        - containerPort: 5001
