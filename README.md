@@ -1,27 +1,27 @@
 # ACEest Fitness DevOps Assignment
 
-This project implements a simple gym management backend service using Flask and demonstrates a complete DevOps workflow including testing, containerization, and CI/CD pipelines.
+This project implements a gym management backend service using Flask and demonstrates a complete DevOps workflow including testing, containerization, continuous integration, and deployment using modern tools and practices.
 
 ---
 
-## 📌 Application Overview
+## Application Overview
 
-The application provides basic APIs for managing gym-related data such as:
+The application provides APIs for managing gym-related operations such as:
 
-- User login
-- Client management
-- Workout tracking
-- Basic metrics recording
+* User login
+* Client management
+* Workout tracking
+* Basic metrics recording
 
-The backend is built using Flask and uses SQLite for data storage.
+The backend is developed using Flask and uses SQLite for data storage.
 
 ---
 
-## ⚙️ Local Setup & Execution
+## Local Setup and Execution
 
 ### 1. Clone the repository
 
-git clone https://github.com/2024tm93539-dev/ACEest-fitness.git  
+git clone https://github.com/2024tm93539-dev/ACEest-fitness.git
 cd ACEest-fitness
 
 ### 2. Install dependencies
@@ -32,82 +32,107 @@ pip install -r requirements.txt
 
 python app.py
 
-The application will run on:
+The application runs on:
 
 http://localhost:5001
 
 ---
 
-## 🧪 Running Tests
+## Unit Testing with Pytest
 
-To execute unit tests using Pytest:
+Automated unit tests are implemented using Pytest to validate API functionality and application behavior.
+
+Run tests using:
 
 pytest
 
-This validates:
-- API endpoints
-- Request handling
-- Basic application logic
+---
+
+## Docker Containerization
+
+The application is containerized using Docker to ensure consistent runtime environments.
+
+### Build Docker Image
+
+docker build -t aceest-fitness:v1 .
+
+### Run Docker Container
+
+docker run -p 5001:5001 aceest-fitness:v1
 
 ---
 
-## 🐳 Docker Setup
+## CI/CD Pipeline
 
-### Build the Docker image
+The project follows a hybrid CI/CD approach using GitHub Actions and Jenkins.
 
-docker build -t aceest-app .
+### GitHub Actions
 
-### Run the container
+* Automatically triggered on every push and pull request
+* Installs dependencies
+* Executes Pytest test cases
+* Builds Docker image
 
-docker run -p 5001:5001 aceest-app
+### Jenkins
 
----
+* Pulls latest code from GitHub
+* Installs dependencies
+* Runs test cases using Pytest
+* Builds Docker image
 
-## 🔄 CI/CD Pipeline (GitHub Actions)
-
-GitHub Actions is configured to automatically run on every push and pull request.
-
-### Pipeline Stages:
-1. Install dependencies
-2. Run Pytest test suite
-3. Build Docker image
-
-This ensures that:
-- Code changes do not break functionality
-- Application is always build-ready
+This ensures continuous integration and validation of the application.
 
 ---
 
-## 🏗️ Jenkins Build Integration
+## Kubernetes Deployment
 
-Jenkins is used as a secondary build validation tool.
+The application is deployed using Kubernetes to ensure scalability and high availability.
 
-### Workflow:
-- Jenkins pulls the latest code from GitHub
-- Executes a basic build validation step
-- Confirms repository structure and readiness
+### Components:
 
-GitHub Actions handles testing and containerization, while Jenkins acts as an additional validation layer in the pipeline.
+* Deployment: Manages application replicas
+* Service: Exposes the application using NodePort
 
----
-
-## 📁 Project Structure
-
-- app.py → Flask application
-- test_app.py → Pytest test cases
-- requirements.txt → Dependencies
-- Dockerfile → Container configuration
-- .github/workflows/main.yml → CI/CD pipeline
-- README.md → Documentation
+Kubernetes configuration files are available in the `k8s/` directory.
 
 ---
 
-## ✅ Summary
+## Deployment Strategies
+
+The following deployment strategies are incorporated:
+
+* Rolling Update: Gradual update of application instances
+* Blue-Green Deployment: Separate environments for zero-downtime switching
+* Canary Deployment: Gradual rollout to a subset of users
+* A/B Testing: Comparing multiple versions
+* Shadow Deployment: Testing new versions alongside production
+
+Blue and Green deployment configurations are available in the `k8s/` directory.
+
+---
+
+## Project Structure
+
+* app.py → Flask application
+* test_app.py → Pytest test cases
+* requirements.txt → Dependencies
+* Dockerfile → Container configuration
+* Jenkinsfile → CI pipeline definition
+* k8s/ → Kubernetes manifests
+* .github/workflows/main.yml → GitHub Actions pipeline
+* README.md → Documentation
+
+---
+
+## Summary
 
 This project demonstrates:
-- Version control using Git and GitHub
-- Automated testing using Pytest
-- Containerization using Docker
-- CI/CD using GitHub Actions
-- Build validation using Jenkins
 
+* Version control using Git and GitHub
+* Automated testing using Pytest
+* Continuous integration using GitHub Actions and Jenkins
+* Containerization using Docker
+* Deployment using Kubernetes
+* Implementation of modern deployment strategies
+
+The overall implementation reflects a complete DevOps pipeline ensuring reliability, scalability, and efficient software delivery.
